@@ -1,0 +1,55 @@
+Erstellen Sie auf Ihrem aktiven Server einen freigegebenen Ordner und legen Sie drei Benutzer mit spezifischen Berechtigungen an:
+
+Benutzer1: Vollzugriff auf den Ordner
+Benutzer2: Nur Leseberechtigung auf den Ordner
+Benutzer3: Keine Berechtigung auf den Ordner (soll den Ordner nicht sehen können)
+Schritt-für-Schritt-Anleitung:
+
+1. Erstellen des freigegebenen Ordners:
+Ordner erstellen:
+
+Melden Sie sich auf Ihrem Server an.
+Öffnen Sie den Windows-Explorer.
+Navigieren Sie zu dem Ort, an dem Sie den Ordner erstellen möchten (z.B. C:\).
+Erstellen Sie einen neuen Ordner und benennen Sie ihn z.B. FreigegebenerOrdner.
+Freigabe einrichten:
+
+Klicken Sie mit der rechten Maustaste auf den neu erstellten Ordner FreigegebenerOrdner.
+Wählen Sie Eigenschaften.
+Gehen Sie zum Tab Freigabe.
+Klicken Sie auf Erweiterte Freigabe.
+Aktivieren Sie das Kontrollkästchen Diesen Ordner freigeben.
+Geben Sie im Feld Freigabename einen Namen ein, z.B. FreigegebenerOrdner.
+Klicken Sie auf Berechtigungen und dann auf Hinzufügen.
+Fügen Sie die Benutzergruppen oder Benutzer hinzu, die Zugriff haben sollen (zunächst Jeder mit Vollzugriff, wir ändern die Berechtigungen später).
+Klicken Sie auf OK, Übernehmen und dann auf OK.
+
+2. Benutzer erstellen:
+
+Klicken Sie mit der rechten Maustaste auf Benutzer und wählen Sie Neuer Benutzer.
+Erstellen Sie die drei Benutzer:
+Benutzername: Benutzer1, Kennwort: Passwort1
+Benutzername: Benutzer2, Kennwort: Passwort2
+Benutzername: Benutzer3, Kennwort: Passwort3
+Stellen Sie sicher, dass Benutzer muss Kennwort bei der nächsten Anmeldung ändern deaktiviert ist.
+Klicken Sie auf Erstellen und dann auf Schließen.
+
+3. Berechtigungen für den freigegebenen Ordner festlegen:
+Freigabe- und NTFS-Berechtigungen konfigurieren:
+Klicken Sie mit der rechten Maustaste auf FreigegebenerOrdner und wählen Sie Eigenschaften.
+Gehen Sie zum Tab Sicherheit.
+Klicken Sie auf Bearbeiten und dann auf Hinzufügen.
+Fügen Sie Benutzer1, Benutzer2 und Benutzer3 hinzu.
+Setzen Sie die Berechtigungen wie folgt:
+Benutzer1: Vollzugriff (Aktivieren Sie die Kontrollkästchen für Vollzugriff)
+Benutzer2: Nur Lesen (Aktivieren Sie die Kontrollkästchen für Lesen und Ausführen, Ordnerinhalt auflisten, Lesen)
+Benutzer3: Keine Berechtigung (Stellen Sie sicher, dass keine Berechtigungen gesetzt sind)
+Klicken Sie auf Übernehmen und dann auf OK.
+
+4. Testen Sie die Berechtigungen:
+Anmeldung als Benutzer1:
+Melden Sie sich als Benutzer1 an und überprüfen Sie, ob Sie Vollzugriff auf FreigegebenerOrdner haben (Dateien erstellen, ändern, löschen).
+Anmeldung als Benutzer2:
+Melden Sie sich als Benutzer2 an und überprüfen Sie, ob Sie nur Leseberechtigung auf FreigegebenerOrdner haben (Dateien ansehen, aber nicht ändern oder löschen).
+Anmeldung als Benutzer3:
+Melden Sie sich als Benutzer3 an und überprüfen Sie, ob Sie keinen Zugriff auf FreigegebenerOrdner haben (der Ordner sollte nicht sichtbar oder zugänglich sein).
