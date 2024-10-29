@@ -1,0 +1,32 @@
+Schritt 1: Erstellen eines neuen Gruppenrichtlinienobjekts (GPO)
+Neues GPO erstellen:
+In der Gruppenrichtlinienverwaltungskonsole, navigiere zum gewünschten Domänennamen.
+Klicke mit der rechten Maustaste auf die Organisationseinheit (OU) oder den Container, auf den das GPO angewendet werden soll (z. B. Test-OU),
+und wähle Neues GPO in dieser Domäne, und verknüpfen hier.
+Gib dem neuen GPO einen Namen, z. B. Test-GPO.
+
+Schritt 2: Konfigurieren der Richtlinien
+GPO bearbeiten:
+
+Klicke mit der rechten Maustaste auf das neu erstellte GPO (Test-GPO) und wähle Bearbeiten.
+Desktophintergrund ändern:
+
+Navigiere zu Desktophintergrund.
+Setze die Richtlinie auf Aktiviert und gib den Pfad zu einem Bild ein, das als Desktophintergrund verwendet werden soll
+(z. B. C:\Windows\Web\Wallpaper\Windows\img0.jpg).
+Klicke auf Übernehmen und dann auf OK.
+
+Richtlinie zur Anzeige der Systemsteuerungselemente:
+
+Navigiere zu Systemsteuerung.
+Doppelklicke auf Nur angegebene Systemsteuerungselemente anzeigen.
+Setze die Richtlinie auf Aktiviert und füge mindestens ein Element hinzu (z. B. System).
+Richtlinie zur Deaktivierung des Task-Managers:
+
+Stelle sicher, dass das GPO mit der gewünschten OU oder dem Container verknüpft ist.
+GPO erzwingen (optional):
+
+Klicke mit der rechten Maustaste auf das GPO und wähle Erzwingen, um sicherzustellen, dass die Richtlinien auf alle Benutzer und Computer in der OU angewendet werden.
+Richtlinien aktualisieren:
+
+Auf einem Client-Computer, der Mitglied der Domäne ist, öffne die Eingabeaufforderung und führe den Befehl gpupdate /force aus, um die Richtlinien sofort zu aktualisieren.
