@@ -1,0 +1,75 @@
+Erstellen oder Sammeln von Hintergrundbildern:
+
+Sammle mindestens drei bis fünf Hintergrundbilder, die als Desktophintergrund verwendet werden sollen.
+Speichere diese Bilder in einem freigegebenen Netzwerkordner oder auf dem Domain Controller unter einem Pfad, der für alle Benutzer zugänglich ist (z. B. \\Server\Wallpapers\).
+Erstellen eines PowerShell-Skripts zur Hintergrundänderung:
+
+Erstelle ein PowerShell-Skript, das den Desktophintergrund ändert. Speichere das Skript als ChangeWallpaper.ps1 im selben Netzwerkordner oder auf dem Domain Controller.
+
+
+
+Beispielskript:
+
+$wallpapers = @("\\SRV-01\Shared\img7.jpg", "\\SRV-01\Shared\img8.jpg", "\\SRV-01\Shared\img9.jpg", "\\SRV-01\Shared\img710.jpg", "\\SRV-01\Shared\img11.jpg", "\\SRV-01\Shared\img12.jpg")
+$count = 0
+
+# Definiere die Funktion zum Setzen des Hintergrundbilds über user32.dll
+Add-Type @"
+    using System;
+    using System.Runtime.InteropServices;
+
+    public class Wallpaper {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+    }
+"@
+
+while ($true) {
+    $path = $wallpapers[$count % $wallpapers.Length]
+    $count++
+
+    # Setze den Desktophintergrund
+    [Wallpaper]::SystemParametersInfo(0x0014, 0, $path, 0x0001)
+
+    # Aktualisiere die Anzeigeeinstellungen (optional, aber in einigen Fällen nützlich)
+    rundll32.exe user32.dll,UpdatePerUserSystemParameters
+
+    Start-Sleep -Seconds 20  # Wartezeit von 20 Sekunden
+}
+
+
+Passe die Pfade zu den Hintergrundbildern an.
+
+Schritt 2: Erstellen und Verknüpfen des Gruppenrichtlinienobjekts (GPO)
+Neues GPO erstellen:
+
+Melde dich am Domain Controller an.
+Öffne Gruppenrichtlinienverwaltung (gpmc.msc).
+Erstelle ein neues GPO, z. B. Dynamic Wallpaper GPO, und verknüpfe es mit der gewünschten Organisationseinheit (OU).
+GPO bearbeiten:
+
+Klicke mit der rechten Maustaste auf das neu erstellte GPO und wähle Bearbeiten.
+PowerShell-Skript konfigurieren:
+
+Navigiere  Skripts (Anmelden/Abmelden).
+Doppelklicke auf Anmelden und klicke auf Hinzufügen.
+Gib den Pfad zum PowerShell-Skript ein (z. B. \\Server\Wallpapers\ChangeWallpaper.ps1).
+PowerShell-Ausführungsrichtlinie konfigurieren:
+
+Navigiere zu Windows-Komponenten > Windows PowerShell.
+Doppelklicke auf Scriptausführungsrichtlinie aktivieren und setze sie auf Aktiviert.
+Wähle Lokal erzwungene Skripts zulassen aus.
+PowerShell-Einstellungen konfigurieren:
+
+Navigiere zu Computerkonfiguration > Richtlinien > Administrative Vorlagen > System > Gruppenrichtlinien.
+Doppelklicke auf "Wartezeit für Richtlinienverarbeitung beim Systemstart angeben" -> Warten auf die Netzwerkverbindung deaktivieren und setze sie auf Deaktiviert.
+Schritt 3: Anwenden und Testen des GPOs
+GPO anwenden:
+
+Stelle sicher, dass das GPO mit der gewünschten OU verknüpft ist.
+Richtlinien aktualisieren:
+
+Auf einem Client-Computer, der Mitglied der Domäne ist, öffne die Eingabeaufforderung und führe den Befehl gpupdate /force aus, um die Richtlinien sofort zu aktualisieren.
+Überprüfen:
+
+Melde dich mit einem Benutzerkonto an, das der OU zugeordnet ist, und überprüfe, ob der Desktophintergrund alle 20 Sekunden geändert wird.
